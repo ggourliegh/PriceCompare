@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import SpecialsPage from './pages/SpecialsPage';
 import SearchPage from './pages/SearchPage';
@@ -8,7 +8,7 @@ import FridgePage from './pages/FridgePage';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<SpecialsPage />} />
@@ -18,6 +18,6 @@ export default function App() {
           <Route path="/fridge" element={<FridgePage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
