@@ -1,31 +1,176 @@
 @import "tailwindcss";
 
 @theme {
+  /* Store brand colors */
   --color-nw-red: #e31837;
   --color-nw-dark: #1a1a2e;
   --color-pns-yellow: #fdd835;
   --color-pns-blue: #1565c0;
   --color-wool-green: #00a651;
   --color-wool-dark: #004d25;
+
+  /* Primary palette */
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;
+  --color-primary-light: #818cf8;
   --color-accent: #06b6d4;
+  --color-accent-light: #22d3ee;
+
+  /* Surfaces */
   --color-surface: #ffffff;
   --color-surface-alt: #f8fafc;
   --color-surface-dark: #f1f5f9;
+  --color-surface-elevated: #ffffff;
+
+  /* Text */
   --color-text: #0f172a;
-  --color-text-secondary: #64748b;
+  --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
+
+  /* Semantic */
   --color-success: #10b981;
+  --color-success-light: #d1fae5;
   --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
   --color-danger: #ef4444;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-danger-light: #fee2e2;
+
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.4s ease-out both;
+  --animate-slide-up: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-scale-in: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+  --animate-pulse-soft: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-badge-pop: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-slide-down: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-bounce-in: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
+
+/* ─── Keyframe Animations ───────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes urgentPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+}
+
+/* ─── Base Reset & Defaults ─────────────────────────────────────────── */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -34,10 +179,261 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+}
+
+/* ─── Scrollbar Hiding ──────────────────────────────────────────────── */
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Thin, subtle scrollbar for areas that should show one */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+}
+
+/* ─── Glass Morphism ────────────────────────────────────────────────── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+
+/* ─── Gradient Text ─────────────────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Gradient Backgrounds ──────────────────────────────────────────── */
+
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+}
+
+.gradient-surface {
+  background: linear-gradient(180deg, var(--color-surface-alt) 0%, #eef2ff 50%, var(--color-surface-alt) 100%);
+}
+
+/* ─── Card & Interactive Utilities ──────────────────────────────────── */
+
+.card-elevated {
+  background: var(--color-surface);
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card-elevated:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.card-interactive {
+  background: var(--color-surface);
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-interactive:hover {
+  box-shadow:
+    0 8px 24px rgba(99, 102, 241, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.card-interactive:active {
+  transform: translateY(0) scale(0.995);
+}
+
+/* ─── Button Interactions ───────────────────────────────────────────── */
+
+.btn-press {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* ─── Shimmer Loading ───────────────────────────────────────────────── */
+
+.shimmer-loading {
+  background: linear-gradient(
+    90deg,
+    #f1f5f9 25%,
+    #e2e8f0 37%,
+    #f1f5f9 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ─── Special/Sale Visual Accents ───────────────────────────────────── */
+
+.special-glow {
+  animation: urgentPulse 2s ease-in-out infinite;
+}
+
+/* ─── Safe Area (iOS Notch Support) ─────────────────────────────────── */
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* ─── Selection Color ───────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--color-primary-dark);
+}
+
+/* ─── Focus Styles ──────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Page Transition Wrapper ───────────────────────────────────────── */
+
+.page-enter {
+  animation: fadeIn 0.3s ease-out, slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Search Page Animations ───────────────────────────────────────── */
+
+@keyframes searchFocusGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0), 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12), 0 4px 16px rgba(99, 102, 241, 0.08);
+  }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes categoryCardIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes resultSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes countPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes emptyBounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.search-focus-glow {
+  animation: searchFocusGlow 0.3s ease-out forwards;
 }
